@@ -19,7 +19,7 @@ import br.com.casadocodigo.pitacos.dtos.PitacoDTO;
 import br.com.casadocodigo.pitacos.models.Pitaco;
 
 @RestController
-@RequestMapping("/pitaco")
+@RequestMapping("/api/pitaco")
 public class PitacoController {
 
 	@Autowired
