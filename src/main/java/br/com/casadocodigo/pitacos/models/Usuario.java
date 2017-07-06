@@ -17,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 public class Usuario implements UserDetails {
 
+	private static final long serialVersionUID = -3250780987855611398L;
+
 	@Id
 	@GeneratedValue
 	private Integer id;

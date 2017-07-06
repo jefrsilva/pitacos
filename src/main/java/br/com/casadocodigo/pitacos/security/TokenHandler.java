@@ -24,8 +24,6 @@ public class TokenHandler {
 	}
 
 	public UserDetails parseUserFromToken(String token) {
-		System.out.println("Parseando o usuario do token: " + token);
-		
 		String userName = Jwts.parser()
 				.setSigningKey(secret)
 				.parseClaimsJws(token)

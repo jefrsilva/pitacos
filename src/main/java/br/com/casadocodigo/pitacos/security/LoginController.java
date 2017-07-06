@@ -1,6 +1,7 @@
 package br.com.casadocodigo.pitacos.security;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +23,13 @@ public class LoginController {
 				.contentType(MediaType.APPLICATION_JSON).body(loginDTO);
 		try {
 			ResponseEntity<String> response = restTemplate.exchange(request, String.class);
-			return ResponseEntity.ok(response.getHeaders().get(TokenAuthenticationService.AUTH_HEADER_NAME).get(0));
+			List<String> headers = response.getHeaders().get(TokenAuthenticationService.AUTH_HEADER_NAME);
+			if (headers.isEmpty()) {
+				throw new RuntimeException("Sem Authorization header na resposta do login");
+			}
+				
+			String token = headers.get(0).replace("Bearer ", "");
+			return ResponseEntity.ok(token);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}

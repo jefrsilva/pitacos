@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers("/api/public/login").permitAll()
-			.antMatchers("/api/pitaco").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/pitaco/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/login").permitAll()
 			.anyRequest().authenticated()
 			.and()

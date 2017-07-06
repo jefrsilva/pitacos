@@ -27,7 +27,7 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
 	protected StatelessLoginFilter(String urlMapping, TokenAuthenticationService tokenAuthenticationService,
 			UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
 		super(new AntPathRequestMatcher(urlMapping));
-
+		
 		this.tokenAuthenticationService = tokenAuthenticationService;
 		this.userDetailsService = userDetailsService;
 
@@ -51,7 +51,6 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
 		final UserAuthentication userAuthentication = new UserAuthentication(userDetails);
 
 		tokenAuthenticationService.addAuthentication(response, userAuthentication);
-
 		SecurityContextHolder.getContext().setAuthentication(userAuthentication);
 	}
 
