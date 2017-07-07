@@ -3,19 +3,23 @@ package br.com.casadocodigo.pitacos.security;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.MalformedJwtException;
 
+@Component
 public class TokenAuthenticationService {
 
 	public static final String AUTH_HEADER_NAME = "Authorization";
+
 	private final TokenHandler tokenHandler;
 
-	public TokenAuthenticationService(String secret, UserDetailsService userDetailsService) {
-		this.tokenHandler = new TokenHandler(secret, userDetailsService);
+	@Autowired
+	public TokenAuthenticationService(TokenHandler tokenHandler) {
+		this.tokenHandler = tokenHandler;
 	}
 
 	public void addAuthentication(HttpServletResponse response, UserAuthentication userAuthentication) {

@@ -27,9 +27,11 @@ public class PitacoController {
 
 	@GetMapping
 	public List<PitacoDTO> buscaTodos() {
+		// @formatter:off
 		return pitacoDao.todos().stream()
 				.map(pitaco -> new PitacoDTO(pitaco))
 				.collect(Collectors.toList());
+		// @formatter:on
 	}
 
 	@GetMapping("/{id}")
