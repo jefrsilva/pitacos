@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.casadocodigo.pitacos.daos.PitacoDAO;
 import br.com.casadocodigo.pitacos.dtos.PitacoDTO;
 import br.com.casadocodigo.pitacos.models.Pitaco;
+import br.com.casadocodigo.pitacos.models.Usuario;
 
 @RestController
 @RequestMapping("/api/pitaco")
@@ -40,7 +42,8 @@ public class PitacoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> adiciona(@RequestBody Pitaco pitaco) {
+	public ResponseEntity<?> adiciona(@RequestBody Pitaco pitaco, @AuthenticationPrincipal Usuario usuario) {
+		pitaco.setUsuario(usuario);
 		pitacoDao.adiciona(pitaco);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pitaco.getId())

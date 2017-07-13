@@ -16,7 +16,7 @@ public class Pitaco {
 	@GeneratedValue
 	private Integer id;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	private Usuario usuario;
 
 	@NotEmpty

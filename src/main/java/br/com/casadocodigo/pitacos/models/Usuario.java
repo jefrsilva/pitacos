@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +14,9 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import br.com.casadocodigo.pitacos.dtos.UsuarioDTO;
 
 @Entity
 public class Usuario implements UserDetails {
@@ -25,6 +29,7 @@ public class Usuario implements UserDetails {
 
 	@NotBlank
 	@Email
+	@Column(unique=true)
 	private String email;
 
 	@NotBlank
@@ -32,6 +37,15 @@ public class Usuario implements UserDetails {
 
 	@OneToMany(mappedBy = "usuario")
 	private List<Pitaco> pitacos;
+
+	public Usuario() {
+
+	}
+
+	public Usuario(UsuarioDTO usuarioDTO) {
+		this.email = usuarioDTO.getEmail();
+		this.senha = new BCryptPasswordEncoder().encode(usuarioDTO.getSenha());
+	}
 
 	public Integer getId() {
 		return id;
