@@ -23,9 +23,8 @@ public class UsuarioController {
 
 	@PostMapping
 	public ResponseEntity<?> cadastra(@RequestBody UsuarioDTO usuarioDTO) {
-		Usuario usuario = new Usuario(usuarioDTO);
-
-		usuarioDAO.adiciona(usuario);
+		Usuario usuario = usuarioDTO.toUsuario();
+		usuarioDAO.save(usuario);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId())
 				.toUri();

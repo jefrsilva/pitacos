@@ -3,6 +3,7 @@ package br.com.casadocodigo.pitacos.dtos;
 import java.time.LocalDateTime;
 
 import br.com.casadocodigo.pitacos.models.Pitaco;
+import br.com.casadocodigo.pitacos.models.Usuario;
 
 public class PitacoDTO {
 
@@ -14,6 +15,10 @@ public class PitacoDTO {
 
 	private Integer idDoUsuario;
 
+	public PitacoDTO() {
+		
+	}
+	
 	public PitacoDTO(Pitaco pitaco) {
 		this.id = pitaco.getId();
 		this.texto = pitaco.getTexto();
@@ -51,6 +56,13 @@ public class PitacoDTO {
 
 	public void setIdDoUsuario(Integer idDoUsuario) {
 		this.idDoUsuario = idDoUsuario;
+	}
+
+	public Pitaco toPitaco(Usuario usuario) {
+		Pitaco pitaco = new Pitaco();
+		pitaco.setTexto(texto);
+		pitaco.setUsuario(usuario);
+		return pitaco;
 	}
 
 }

@@ -25,12 +25,12 @@ import br.com.casadocodigo.pitacos.models.Usuario;
 public class PitacoController {
 
 	@Autowired
-	private PitacoDAO pitacoDao;
+	private PitacoDAO pitacoDAO;
 
 	@GetMapping
 	public List<PitacoDTO> buscaTodos() {
 		// @formatter:off
-		return pitacoDao.todos().stream()
+		return pitacoDAO.findAllByOrderByDataDesc().stream()
 				.map(pitaco -> new PitacoDTO(pitaco))
 				.collect(Collectors.toList());
 		// @formatter:on
@@ -38,13 +38,13 @@ public class PitacoController {
 
 	@GetMapping("/{id}")
 	public PitacoDTO busca(@PathVariable Integer id) {
-		return new PitacoDTO(pitacoDao.busca(id));
+		return new PitacoDTO(pitacoDAO.findOne(id));
 	}
 
 	@PostMapping
-	public ResponseEntity<?> adiciona(@RequestBody Pitaco pitaco, @AuthenticationPrincipal Usuario usuario) {
-		pitaco.setUsuario(usuario);
-		pitacoDao.adiciona(pitaco);
+	public ResponseEntity<?> adiciona(@RequestBody PitacoDTO pitacoDTO, @AuthenticationPrincipal Usuario usuario) {
+		Pitaco pitaco = pitacoDTO.toPitaco(usuario);
+		pitacoDAO.save(pitaco);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pitaco.getId())
 				.toUri();

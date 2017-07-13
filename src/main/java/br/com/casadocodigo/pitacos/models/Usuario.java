@@ -38,15 +38,6 @@ public class Usuario implements UserDetails {
 	@OneToMany(mappedBy = "usuario")
 	private List<Pitaco> pitacos;
 
-	public Usuario() {
-
-	}
-
-	public Usuario(UsuarioDTO usuarioDTO) {
-		this.email = usuarioDTO.getEmail();
-		this.senha = new BCryptPasswordEncoder().encode(usuarioDTO.getSenha());
-	}
-
 	public Integer getId() {
 		return id;
 	}

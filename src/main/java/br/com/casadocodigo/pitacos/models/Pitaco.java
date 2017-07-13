@@ -23,7 +23,7 @@ public class Pitaco {
 	private String texto;
 
 	private LocalDateTime data = LocalDateTime.now();
-
+	
 	public Integer getId() {
 		return id;
 	}

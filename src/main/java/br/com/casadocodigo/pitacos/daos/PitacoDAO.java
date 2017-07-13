@@ -2,31 +2,16 @@ package br.com.casadocodigo.pitacos.daos;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.Repository;
 
 import br.com.casadocodigo.pitacos.models.Pitaco;
 
-@Repository
-@Transactional
-public class PitacoDAO {
+public interface PitacoDAO extends Repository<Pitaco, Integer> {
 
-	@PersistenceContext
-	private EntityManager manager;
+	List<Pitaco> findAllByOrderByDataDesc();
 
-	public List<Pitaco> todos() {
-		return manager.createQuery("select p from Pitaco p order by data desc", Pitaco.class).getResultList();
-	}
+	Pitaco findOne(Integer id);
 
-	public Pitaco busca(Integer id) {
-		return manager.find(Pitaco.class, id);
-	}
-
-	public void adiciona(Pitaco pitaco) {
-		manager.persist(pitaco);
-	}
+	void save(Pitaco pitaco);
 
 }
