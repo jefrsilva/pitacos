@@ -15,6 +15,8 @@ public interface UsuarioDAO extends Repository<Usuario, Integer>, UserDetailsSer
 	@Query("select u from Usuario u where email=:email")
 	UserDetails loadUserByUsername(@Param("email") String email) throws UsernameNotFoundException;
 
+	Usuario findOne(Integer id);
+	
 	void save(Usuario usuario);
 
 }

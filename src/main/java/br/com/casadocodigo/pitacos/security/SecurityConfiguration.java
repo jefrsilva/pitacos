@@ -26,14 +26,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// @formatter:off
 		http
 			.authorizeRequests()
-				.antMatchers("/api/public/login").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/pitaco/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/usuario").permitAll()
+				.antMatchers("/api/v1/public/login").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/v1/pitacos/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/v1/curtidas/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/v1/usuarios/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/v1/usuarios").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.csrf().disable()
-			.addFilterBefore(new StatelessLoginFilter("/api/login", tokenAuthenticationService, userDetailsService, 
+			.addFilterBefore(new StatelessLoginFilter("/api/v1/login", tokenAuthenticationService, userDetailsService, 
 					authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 			.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), UsernamePasswordAuthenticationFilter.class);
 		// @formatter:on

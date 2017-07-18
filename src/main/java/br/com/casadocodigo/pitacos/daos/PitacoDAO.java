@@ -8,10 +8,10 @@ import br.com.casadocodigo.pitacos.models.Pitaco;
 
 public interface PitacoDAO extends Repository<Pitaco, Integer> {
 
-	List<Pitaco> findAllByOrderByDataDesc();
-
 	Pitaco findOne(Integer id);
 
 	void save(Pitaco pitaco);
+
+	List<Pitaco> findAllByUsuarioId(Integer id);
 
 }

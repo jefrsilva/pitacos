@@ -14,9 +14,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import br.com.casadocodigo.pitacos.dtos.UsuarioDTO;
 
 @Entity
 public class Usuario implements UserDetails {
@@ -29,7 +26,7 @@ public class Usuario implements UserDetails {
 
 	@NotBlank
 	@Email
-	@Column(unique=true)
+	@Column(unique = true)
 	private String email;
 
 	@NotBlank
@@ -37,6 +34,9 @@ public class Usuario implements UserDetails {
 
 	@OneToMany(mappedBy = "usuario")
 	private List<Pitaco> pitacos;
+
+	@OneToMany(mappedBy = "usuario")
+	private List<Curtida> curtidas;
 
 	public Integer getId() {
 		return id;
@@ -68,6 +68,14 @@ public class Usuario implements UserDetails {
 
 	public void setPitacos(List<Pitaco> pitacos) {
 		this.pitacos = pitacos;
+	}
+
+	public List<Curtida> getCurtidas() {
+		return curtidas;
+	}
+
+	public void setCurtidas(List<Curtida> curtidas) {
+		this.curtidas = curtidas;
 	}
 
 	@Override

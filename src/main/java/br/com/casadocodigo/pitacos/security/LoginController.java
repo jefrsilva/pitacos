@@ -15,11 +15,11 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class LoginController {
 
-	@PostMapping(value = "/api/public/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/v1/public/login", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
 		RestTemplate restTemplate = new RestTemplate();
 
-		RequestEntity<LoginDTO> request = RequestEntity.post(URI.create("http://localhost:8080/api/login"))
+		RequestEntity<LoginDTO> request = RequestEntity.post(URI.create("http://localhost:8080/api/v1/login"))
 				.contentType(MediaType.APPLICATION_JSON).body(loginDTO);
 		try {
 			ResponseEntity<String> response = restTemplate.exchange(request, String.class);
